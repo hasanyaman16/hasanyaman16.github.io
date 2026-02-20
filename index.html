@@ -3,11 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yalova EE Notlarım</title>
+    <title>µHENDİS | Devre Elemanları</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Sitenin genel makyajı (CSS) */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+        }
+        /* Üst Menü Tasarımı */
+        header {
+            background-color: #fff;
+            padding: 15px 50px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        nav ul li a:hover {
+            color: #007BFF;
+        }
+        /* Karşılama Alanı (Hero Section) */
+        .hero {
+            text-align: center;
+            padding: 80px 20px;
+            background: linear-gradient(135deg, #007BFF, #00c6ff);
+            color: white;
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        /* İçerik Kartları (Devre Elemanları) */
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .card h3 {
+            color: #007BFF;
+            margin-bottom: 10px;
+        }
+        /* Alt Bilgi */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #333;
+            color: white;
+            margin-top: 40px;
+        }
+    </style>
 </head>
-<body style="text-align: center; padding-top: 50px; font-family: sans-serif;">
-    <h1 style="color: #007BFF;">µHENDİS</h1>
-    <h2>Devre Elemanları Siteme Hoş Geldiniz</h2>
-    <p>Yakında burada dirençler, kapasitörler ve daha fazlası olacak.</p>
+<body>
+
+    <header>
+        <div class="logo">
+            <svg width="150" height="40" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
+                <g font-family="'Poppins', sans-serif" font-weight="bold">
+                  <text x="5" y="45" font-size="52" fill="#007BFF">µ</text>
+                  <text x="45" y="45" font-size="36" fill="#333" letter-spacing="1">HENDİS</text>
+                </g>
+            </svg>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#">Ana Sayfa</a></li>
+                <li><a href="#">Dirençler</a></li>
+                <li><a href="#">Kondansatörler</a></li>
+                <li><a href="#">Yarı İletkenler</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Devre Analizini Kolaylaştırıyoruz</h1>
+        <p>Temel devre elemanlarının çalışma mantığını, analiz yöntemlerini ve simülasyon ipuçlarını burada bulabilirsin.</p>
+    </section>
+
+    <div class="container">
+        <div class="card">
+            <h3>Dirençler (R)</h3>
+            <p>Akıma karşı zorluk gösteren temel pasif devre elemanı. Renk kodları, seri/paralel bağlama ve Ohm kanunu detayları.</p>
+        </div>
+        
+        <div class="card">
+            <h3>Kondansatörler (C)</h3>
+            <p>Elektrik enerjisini depolayan elemanlar. RC zaman sabiti, şarj/deşarj grafikleri ve filtre devrelerindeki kullanımları.</p>
+        </div>
+        
+        <div class="card">
+            <h3>Yarı İletkenler</h3>
+            <p>Diyotlar ve BJT/MOSFET transistörler. İletkenlik özelliklerinin nasıl kontrol edildiği ve anahtarlama mantığı.</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>Yalova Üniversitesi Elektrik Elektronik Mühendisliği notları ile hazırlanmıştır. © 2026</p>
+    </footer>
+
 </body>
 </html>
