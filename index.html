@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,600&display=swap" rel="stylesheet">
     
     <style>
-        /* GENEL AYARLAR */
+        /* GENEL AYARLAR VE YENİ ARKA PLAN */
         body {
             margin: 0;
             padding: 0;
@@ -15,13 +15,30 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #1a1a1a;
             font-family: 'Playfair Display', serif;
             overflow: hidden;
+            /* YENİ: Şair Masası Arka Plan Görseli */
+            background-image: url('https://images.unsplash.com/photo-1585325249582-69458791687c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+            background-size: cover; /* Tüm ekranı kaplasın */
+            background-position: center; /* Ortasın */
+            background-repeat: no-repeat;
+            position: relative; /* Overlay için gerekli */
         }
 
+        /* YENİ: Arka planı karartan loşluk katmanı */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.6); /* %60 siyahlık */
+            z-index: -1; /* Kitabın arkasında kalsın */
+        }
+
+        /* 3D SAHNE */
         .book-container {
-            perspective: 1200px; 
+            perspective: 1200px;
+            /* Kitabın masada durduğunu hissettiren zemin gölgesi */
+            filter: drop-shadow(0px 25px 20px rgba(0,0,0,0.5));
         }
 
         .book {
