@@ -92,7 +92,7 @@
             margin-right: 10px;
         }
 
-        /* KİTABI KAPAT BUTONU (Sadece kitap açıkken görünür) */
+        /* KİTABI KAPAT BUTONU */
         .close-btn {
             position: absolute;
             top: 15px;
@@ -108,7 +108,7 @@
         .book.open .close-btn {
             opacity: 1;
             pointer-events: auto;
-            transition-delay: 0.8s; /* Kapak açıldıktan sonra yavaşça belirsin */
+            transition-delay: 0.8s;
         }
 
         /* HAREKETLİ KAPAK */
@@ -119,7 +119,7 @@
 
         .book.open .cover {
             transform: rotateY(-180deg);
-            cursor: default; /* Açıkken kapağa tıklanmasın */
+            cursor: default;
         }
 
         .front, .back {
@@ -183,21 +183,32 @@
             text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
         }
 
-        /* MOBİL UYUM SİHRİ BURADA BAŞLIYOR */
+        /* 📱 MOBİL İÇİN KESİN ÇÖZÜM (GÜNCELLENDİ) */
         @media screen and (max-width: 768px) {
             .book {
-                width: 300px; /* Telefona tam sığacak güvenli genişlik */
-                height: 450px;
+                width: 90vw; /* Ekranın büyük kısmını kaplasın */
+                max-width: 320px; 
+                height: 75vh;
+                max-height: 480px;
             }
             .book.open {
-                /* Kitap bilgisayardaki gibi sağa kaymasın, olduğu yerde kalsın! */
-                transform: translateX(0); 
+                /* Asla sağa kayma, olduğun yerde açıl! */
+                transform: translateX(0) !important; 
+            }
+            .right-page {
+                /* Yazıların sığması için kenar boşluklarını daralttık */
+                padding: 25px 15px; 
             }
             .toc-title {
-                font-size: 1.8rem;
+                font-size: 1.6rem;
+                margin-bottom: 20px;
             }
             .toc-list li {
-                font-size: 1.1rem;
+                font-size: 1.05rem;
+                margin-bottom: 15px;
+            }
+            .title {
+                font-size: 2rem;
             }
         }
     </style>
@@ -236,8 +247,6 @@
     <script>
         function toggleBook() {
             var book = document.getElementById('myBook');
-            // Eğer kitap zaten açıksa ve kullanıcı kapağa tıklarsa hiçbir şey yapma
-            // (Çünkü açıkken sadece X butonundan kapanmasını istiyoruz)
             if (book.classList.contains('open') && event.currentTarget.classList.contains('cover')) {
                 return;
             }
