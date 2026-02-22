@@ -3,176 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>µHENDİS | Devre Elemanları</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Life Through Hasan's Eyes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    
     <style>
-        /* Sitenin genel makyajı (CSS) */
-        * {
+        /* Sitenin arka planı ve kitabın ortalanması */
+        body {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-        body {
-            background-color: #f4f7f6;
-            color: #333;
-            line-height: 1.6;
-        }
-        /* Üst Menü Tasarımı */
-        header {
-            background-color: #fff;
-            padding: 15px 50px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-        }
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 20px;
-        }
-        nav ul li a {
-            text-decoration: none;
-            color: #333;
-            font-weight: 600;
-            transition: color 0.3s;
-        }
-        nav ul li a:hover {
-            color: #007BFF;
-        }
-        /* Karşılama Alanı (Hero Section) */
-        .hero {
-            text-align: center;
-            padding: 80px 20px;
-            background: linear-gradient(135deg, #007BFF, #00c6ff);
-            color: white;
-        }
-        .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-        .hero p {
-            font-size: 1.2rem;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        /* İçerik Kartları (Devre Elemanları) */
-        .container {
-            max-width: 1000px;
-            margin: 40px auto;
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
-        .card {
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-            text-align: center;
-            transition: transform 0.3s;
-        }
-        .card:hover {
-            transform: translateY(-5px);
-        }
-        .card h3 {
-            color: #007BFF;
-            margin-bottom: 10px;
-        }
-        
-        /* YENİ EKLENEN: Hakkımda Bölümü */
-        .about-section {
-            background-color: #fff;
-            padding: 60px 20px;
-            margin-top: 40px;
-            text-align: center;
-            box-shadow: 0 -4px 10px rgba(0,0,0,0.05);
-        }
-        .about-content {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: left;
-        }
-        .about-content h2 {
-            color: #007BFF;
-            margin-bottom: 20px;
-            text-align: center;
-            font-size: 2rem;
-        }
-        .about-content p {
-            margin-bottom: 15px;
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: #444;
+            height: 100vh;
+            background-color: #1a1a1a; /* Kitabı öne çıkarmak için koyu arka plan */
+            font-family: 'Playfair Display', serif;
         }
 
-        /* Alt Bilgi */
-        footer {
+        /* 3D Derinlik alanı (İleride kapağı açarken işimize yarayacak) */
+        .book-container {
+            perspective: 1000px; 
+        }
+
+        /* Kitap Kapağının kendisi */
+        .book-cover {
+            width: 320px;
+            height: 480px;
+            /* Deri hissiyatı veren kahverengi tonları */
+            background: linear-gradient(45deg, #3e2211, #5c341a, #3e2211); 
+            border-radius: 3px 15px 15px 3px;
+            /* Kitabın kalınlığını ve gölgesini veren sihirli ayarlar */
+            box-shadow: 
+                inset 4px 0 10px rgba(0,0,0,0.6), /* Kitap sırtındaki iç gölge */
+                inset -2px 0 5px rgba(255,255,255,0.1), /* Sağ kenardaki hafif parlama */
+                15px 20px 30px rgba(0,0,0,0.8); /* Masaya vuran dış gölge */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            border-left: 18px solid #241309; /* Kitabın kalın sırtı */
+            cursor: pointer; /* Üstüne gelince fare el işareti olsun */
+            transition: transform 0.3s ease; /* İleride ekleyeceğimiz animasyonlar için yumuşaklık */
+        }
+
+        /* Fareyle kapağın üstüne gelince hafifçe yukarı kalkma efekti */
+        .book-cover:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Kapağın içindeki altın rengi tarihi çerçeve */
+        .gold-border {
+            width: 100%;
+            height: 100%;
+            border: 2px solid #c5a059; /* Eskitme altın rengi */
+            border-radius: 2px 10px 10px 2px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             text-align: center;
             padding: 20px;
-            background-color: #333;
-            color: white;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        /* Başlık Yazısı */
+        .title {
+            color: #d4af37; /* Altın sarısı */
+            font-size: 2.4rem;
+            line-height: 1.4;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.9);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        /* Alt Başlık */
+        .subtitle {
+            color: #a88746;
+            font-size: 1.2rem;
+            font-style: italic;
+            position: absolute;
+            bottom: 40px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="logo">
-            <svg width="150" height="40" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
-                <g font-family="'Poppins', sans-serif" font-weight="bold">
-                  <text x="5" y="45" font-size="52" fill="#007BFF">µ</text>
-                  <text x="45" y="45" font-size="36" fill="#333" letter-spacing="1">HENDİS</text>
-                </g>
-            </svg>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="#">Ana Sayfa</a></li>
-                <li><a href="#">Dirençler</a></li>
-                <li><a href="#">Kondansatörler</a></li>
-                <li><a href="#">Yarı İletkenler</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <section class="hero">
-        <h1>Devre Analizini Kolaylaştırıyoruz</h1>
-        <p>Temel devre elemanlarının çalışma mantığını, analiz yöntemlerini ve simülasyon ipuçlarını burada bulabilirsin.</p>
-    </section>
-
-    <div class="container">
-        <div class="card">
-            <h3>Dirençler (R)</h3>
-            <p>Akıma karşı zorluk gösteren temel pasif devre elemanı. Renk kodları, seri/paralel bağlama ve Ohm kanunu detayları.</p>
-        </div>
-        
-        <div class="card">
-            <h3>Kondansatörler (C)</h3>
-            <p>Elektrik enerjisini depolayan elemanlar. RC zaman sabiti, şarj/deşarj grafikleri ve filtre devrelerindeki kullanımları.</p>
-        </div>
-        
-        <div class="card">
-            <h3>Yarı İletkenler</h3>
-            <p>Diyotlar ve BJT/MOSFET transistörler. İletkenlik özelliklerinin nasıl kontrol edildiği ve anahtarlama mantığı.</p>
+    <div class="book-container">
+        <div class="book-cover">
+            <div class="gold-border">
+                <div class="title">Life<br>Through<br>Hasan's<br>Eyes</div>
+                <div class="subtitle">Bir Biyografi</div>
+            </div>
         </div>
     </div>
-
-    <section class="about-section">
-        <div class="about-content">
-            <h2>Ben Kimim?</h2>
-            <p>Merhaba! Ben Yalova Üniversitesi Elektrik Elektronik Mühendisliği 2. sınıf öğrencisiyim. Elektronik dünyasına sadece sınavlardan geçmek için değil, işin mutfağını ve mantığını kavramak için merakla bakanlardanım. Bilgisayar destekli devre tasarımı, MATLAB ve PSIM gibi araçlarla simülasyonlar yapmak, karmaşık devreleri analiz etmek en çok keyif aldığım alanların başında geliyor. Bu siteyi de tam olarak bu yüzden, öğrendiklerimi en sade ve anlaşılır haliyle paylaşmak için kurdum.</p>
-            <p>Ancak hayat sadece diferansiyel denklemlerden ve elektromanyetik alanlardan ibaret değil! Hayata biraz oyun hissiyatıyla, eğlenerek tutunmayı seviyorum. Vizelerden ve lab raporlarından fırsat bulduğumda beni TVS Apache RTR 200 motorumla rüzgarı hissederken bulabilirsiniz. Motor sürmek benim için sadece bir ulaşım değil, gerçek bir tutku.</p>
-            <p>Bunun dışında yaratıcılığımı konuşturmayı sevdiğim farklı alanlar da var. Bazen arkadaşlarımı absürt kılıklara soktuğum eğlenceli fotoğraf editleri yapıyor, bazen de mutfağa girip efsanevi bir kremalı tavuk veya tam kıvamında bir kuru fasulye yaparak kendi şefliğimi ilan ediyorum.</p>
-            <p>Kısacası; hem devreleri hem de hayatı kendi kurallarıma göre tasarlamayı seven bir mühendis adayıyım. Siteme hoş geldin!</p>
-        </div>
-    </section>
-
-    <footer>
-        <p>Yalova Üniversitesi Elektrik Elektronik Mühendisliği notları ile hazırlanmıştır. © 2026</p>
-    </footer>
 
 </body>
 </html>
