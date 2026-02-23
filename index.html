@@ -3,170 +3,246 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Şefin Mutfak Sırları - Hasan'ın Gözünden</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <title>Life Through Hasan's Eyes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,600&display=swap" rel="stylesheet">
     
     <style>
-        /* GENEL AYARLAR */
+        /* GENEL AYARLAR VE YENİ ARKA PLAN */
         body {
             margin: 0;
-            padding: 40px 20px;
-            background-color: #1a1a1a; /* Ana sayfa ile aynı karanlık arka plan */
-            background-image: url('arkaplan.jpg'); /* Ana sayfadaki o güzel masan varsa burada da çıksın */
-            background-size: cover;
-            background-attachment: fixed;
-            font-family: 'Playfair Display', serif;
+            padding: 0;
             display: flex;
             justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Playfair Display', serif;
+            overflow: hidden;
+            /* YENİ: Şair Masası Arka Plan Görseli */
+            background-image: url('arkaplan.png');
+            background-size: cover; /* Tüm ekranı kaplasın */
+            background-position: center; /* Ortasın */
+            background-repeat: no-repeat;
+            position: relative; /* Overlay için gerekli */
         }
 
-        /* KARARTMA KATMANI */
+        /* YENİ: Arka planı karartan loşluk katmanı */
         body::before {
             content: '';
-            position: fixed;
+            position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: -1;
+            background: rgba(0, 0, 0, 0.6); /* %60 siyahlık */
+            z-index: -1; /* Kitabın arkasında kalsın */
         }
 
-        /* ESKİ KAĞIT TASARIMI (TARİF DEFTERİ) */
-        .recipe-book {
-            background-color: #f4e8c1; /* O meşhur sararmış kağıt */
+        /* 3D SAHNE */
+        .book-container {
+            perspective: 1200px;
+            /* Kitabın masada durduğunu hissettiren zemin gölgesi */
+            filter: drop-shadow(0px 25px 20px rgba(0,0,0,0.5));
+        }
+
+        .book {
+            width: 320px;
+            height: 480px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 1s ease;
+        }
+
+        /* BİLGİSAYARDA AÇILMA (Kitap sağa kayar) */
+        .book.open {
+            transform: translateX(160px);
+        }
+
+        .page {
             width: 100%;
-            max-width: 800px;
-            padding: 50px;
-            border-radius: 5px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.8), inset 0 0 50px rgba(139, 69, 19, 0.1);
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform-origin: left center;
+            transform-style: preserve-3d;
+            transition: transform 1.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+            border-radius: 3px 15px 15px 3px;
+        }
+
+        /* İÇİNDEKİLER SAYFASI */
+        .right-page {
+            background-color: #f4e8c1;
+            box-shadow: inset 10px 0 20px rgba(0,0,0,0.1), 15px 20px 30px rgba(0,0,0,0.8);
+            z-index: 1;
+            padding: 40px;
+            box-sizing: border-box;
             color: #3e2211;
+            border-left: 2px solid #dcb588;
+        }
+
+        .toc-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #3e2211;
+            padding-bottom: 10px;
+            margin-top: 10px;
+        }
+        
+        .toc-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .toc-list li {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: color 0.3s;
+            font-weight: 600;
+        }
+        
+        .toc-list li:hover {
+            color: #8c3a1b;
+        }
+        
+        .chapter-num {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        /* HAREKETLİ KAPAK */
+        .cover {
+            z-index: 2;
+            cursor: pointer;
+        }
+
+        .book.open .cover {
+            transform: rotateY(-180deg);
+        }
+
+        .front, .back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 3px 15px 15px 3px;
+        }
+
+        .front {
+            background: linear-gradient(45deg, #3e2211, #5c341a, #3e2211);
+            box-shadow: inset 4px 0 10px rgba(0,0,0,0.6), inset -2px 0 5px rgba(255,255,255,0.1);
+            border-left: 18px solid #241309;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .back {
+            background-color: #2c180d;
+            transform: rotateY(180deg);
+            border-radius: 15px 3px 3px 15px;
+            border-right: 18px solid #1a0e07;
+            box-shadow: inset -10px 0 20px rgba(0,0,0,0.4);
+        }
+
+        .gold-border {
+            width: 100%;
+            height: 100%;
+            border: 2px solid #c5a059;
+            border-radius: 2px 10px 10px 2px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
             position: relative;
         }
-
-        /* İÇ KENARLIK GÖLGESİ */
-        .recipe-book::after {
-            content: '';
-            position: absolute;
-            top: 15px; left: 15px; right: 15px; bottom: 15px;
-            border: 1px solid rgba(62, 34, 17, 0.2);
-            pointer-events: none;
-        }
-
-        /* GERİ DÖN BUTONU */
-        .back-btn {
-            display: inline-block;
-            text-decoration: none;
-            color: #8c3a1b;
-            font-size: 1.2rem;
-            font-style: italic;
-            margin-bottom: 30px;
-            transition: transform 0.3s;
-        }
-        .back-btn:hover {
-            transform: translateX(-5px);
-            color: #5c2410;
-        }
-
-        /* BAŞLIKLAR */
-        h1 {
-            text-align: center;
-            font-size: 3rem;
-            border-bottom: 2px solid #3e2211;
-            padding-bottom: 20px;
-            margin-bottom: 40px;
-            color: #2c180d;
-        }
-        h2 {
-            font-size: 2rem;
-            color: #8c3a1b;
-            margin-top: 40px;
-            border-bottom: 1px dashed #8c3a1b;
-            padding-bottom: 10px;
-        }
-        h3 {
-            font-size: 1.4rem;
-            margin-top: 20px;
-            color: #4a2914;
-        }
-
-        /* MALZEMELER VE ADIMLAR */
-        ul, ol {
-            font-size: 1.15rem;
-            line-height: 1.8;
+        
+        .title {
+            color: #d4af37;
+            font-size: 2.4rem;
+            line-height: 1.4;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.9);
+            text-transform: uppercase;
+            letter-spacing: 2px;
             margin-bottom: 20px;
         }
-        li {
-            margin-bottom: 10px;
-        }
-        .ingredients {
-            background-color: rgba(140, 58, 27, 0.05);
-            padding: 20px 20px 20px 40px;
-            border-left: 4px solid #8c3a1b;
-            border-radius: 0 10px 10px 0;
-            margin-bottom: 30px;
+        
+        .subtitle {
+            color: #a88746;
+            font-size: 1.2rem;
+            font-style: italic;
+            position: absolute;
+            bottom: 40px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
         }
 
-        /* MOBİL UYUM */
+        /* 📱 MOBİL UYUM */
         @media screen and (max-width: 768px) {
-            body { padding: 20px 10px; }
-            .recipe-book { padding: 30px 20px; }
-            h1 { font-size: 2.2rem; }
-            h2 { font-size: 1.6rem; }
-            ul, ol { font-size: 1.05rem; }
+            .book {
+                width: 90vw; 
+                max-width: 320px; 
+                height: 75vh;
+                max-height: 480px;
+            }
+            .book.open {
+                transform: translateX(0) !important; 
+            }
+            .right-page {
+                padding: 25px 15px; 
+            }
+            .toc-title {
+                font-size: 1.6rem;
+                margin-bottom: 20px;
+            }
+            .toc-list li {
+                font-size: 1.05rem;
+                margin-bottom: 15px;
+            }
+            .title {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
 <body>
 
-    <div class="recipe-book">
-        <a href="index.html" class="back-btn">← Kitaba Geri Dön</a>
+    <div class="book-container">
+        <div class="book" id="myBook">
+            
+            <div class="page right-page">
+                <h2 class="toc-title">İçindekiler</h2>
+                <ul class="toc-list">
+                    <li><span class="chapter-num">I.</span> Eğitim Sürüncemesi</li>
+                    <li><span class="chapter-num">II.</span> İki Teker Üzerinde</li>
+                    <li><span class="chapter-num">III.</span> Şefin Mutfak Sırları</li>
+                    <li><span class="chapter-num">IV.</span> Kreatif Atölye</li>
+                    <li><span class="chapter-num">V.</span> İçsel Yolculuk</li>
+                </ul>
+            </div>
 
-        <h1>BÖLÜM III: Şefin Mutfak Sırları</h1>
-        <p style="text-align: center; font-style: italic; font-size: 1.2rem; margin-bottom: 40px;">
-            "Sadece laboratuvarda değil, mutfakta da kimya vardır. İşte o efsane ikili..."
-        </p>
+            <div class="page cover" onclick="toggleBook()">
+                <div class="front">
+                    <div class="gold-border">
+                        <div class="title">Life<br>Through<br>Hasan's<br>Eyes</div>
+                        <div class="subtitle">Bir Biyografi</div>
+                    </div>
+                </div>
+                <div class="back"></div>
+            </div>
 
-        <h2>Kremalı Mantarlı Tavuk</h2>
-        <p>Mekanın sahibini belli eden, dışarıda yediklerini unutturacak o yoğun soslu şaheser.</p>
-        
-        <div class="ingredients">
-            <h3>Malzemeler:</h3>
-            <ul>
-                <li>500 gr tavuk göğsü (Kuşbaşı veya jülyen doğranmış)</li>
-                <li>400 gr kültür mantarı (İnce dilimlenmiş)</li>
-                <li>1 kutu (200 ml) sıvı krema</li>
-                <li>2 diş sarımsak (Ezilmiş)</li>
-                <li>1 yemek kaşığı tereyağı ve 2 yemek kaşığı zeytinyağı</li>
-                <li>Tuz, karabiber, kekik (Sosun can damarı)</li>
-                <li>İsteğe bağlı: Üzeri için biraz parmesan veya kaşar rendesi</li>
-            </ul>
         </div>
+    </div>
 
-        <h3>Nasıl Yapılır?</h3>
-        <ol>
-            <li>Tavayı iyice ısıt. Tavukları zeytinyağında yüksek ateşte mühürle ki suyu içinde kalsın. Renkleri dönünce tavadan alıp kenarda beklet.</li>
-            <li>Aynı tavaya (tavuğun lezzeti tavada kaldı) tereyağını ve mantarları at. Mantarlar suyunu salıp çekene kadar kavur.</li>
-            <li>Sarımsakları ekle, kokusu çıkana kadar 1 dakika kadar mantarlarla çevir.</li>
-            <li>Kenarda bekleyen tavukları tekrar tavaya al. Üzerine kremayı dök.</li>
-            <li>Krema hafiften kaynamaya başlayınca tuz, karabiber ve bol kekiği ekle. Kısık ateşte sos hafif koyulaşana kadar 4-5 dakika tıkırdat. Ve hazır!</li>
-        </ol>
+    <script>
+        function toggleBook() {
+            var book = document.getElementById('myBook');
+            book.classList.toggle('open');
+        }
+    </script>
 
-        <h2>Efsane Tereyağlı Pilav</h2>
-        <p>Tavuğun yanına lapa olmayan, tane tane dökülen usta işi pilav.</p>
-
-        <div class="ingredients">
-            <h3>Malzemeler:</h3>
-            <ul>
-                <li>2 su bardağı baldo pirinç</li>
-                <li>3 su bardağı sıcak su (veya tavuk suyu)</li>
-                <li>2 yemek kaşığı tereyağı + 2 yemek kaşığı sıvı yağ</li>
-                <li>Tuz ve 1-2 damla limon suyu (Pirincin beyaz kalması için)</li>
-            </ul>
-        </div>
-
-        <h3>Nasıl Yapılır?</h3>
-        <ol>
-            <li>Pirinçleri nişastasından arınana kadar ılık suda, suyu berraklaşana dek nazikçe yıka ve süz.</li>
-            <li>Tencerede sıvı yağı ve tereyağını erit (tereyağı yanmasın diye sıvı yağ koyuyoruz).</li>
-            <li>Pirinçleri ekle ve en az 4-5 dakika, pirinçler cam gibi şeffaflaşana kadar orta ateşte kavur. Pilavın tane tane olmasının sırrı buradadır.</li>
-            <li>Sıcak suyu, tuzu ve o gizli silah olan 1-2 damla limon suyunu ekle.</li>
-            <li>Tencerenin kapağını kapat. Su kaynayana kadar yüksek, kaynadıktan sonra en kısık ateşte suyu tamamen çekene kadar pişir.</li>
-            <li>Altını kapatınca kapağın altına kağıt havlu koy ve en az 15 dakika demlenmeye bırak. K
+</body>
+</html>
